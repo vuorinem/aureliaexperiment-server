@@ -28,6 +28,7 @@ namespace noteapi
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.AddCors();
             services.AddMvc();
         }
 
@@ -36,6 +37,10 @@ namespace noteapi
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            app.UseCors(configure => {
+                configure.AllowAnyOrigin();
+            });
 
             app.UseMvc();
         }
